@@ -1,0 +1,43 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'org.standardout:bnd-platform:1.2.0'
+		// classpath 'org.codehaus.groovy:groovy-backports-compat23:2.3+'
+	}
+}
+
+apply plugin: 'org.standardout.bnd-platform'
+
+/* XXX Problem with this notation: dependency of bnd-platform is not resolved correctly / cannot be loaded as plugin
+plugins {
+  id "org.standardout.bnd-platform" version "1.2.0"
+}
+*/
+
+repositories {
+	mavenCentral()
+}
+
+defaultTasks 'clean', 'updateSiteZip'
+
+platform {
+  // just one example dependency in this configuration
+  bundle 'commons-io:commons-io:2.4'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.2'
+}
+
+// Java version problem debug stuff
+
+task javaVersion {
+  println "Configuration time Java version: ${System.getProperty('java.version')}"
+  doLast {
+    println "Execution time Java version: ${System.getProperty('java.version')}"
+  }
+}
+
+project.tasks.clean.dependsOn('javaVersion')

@@ -24,9 +24,42 @@ repositories {
 defaultTasks 'clean', 'updateSiteZip'
 
 platform {
-	// just one example dependency in this configuration
-	// provide your own configuration - for more information see the bnd-platform docs on GitHub
-	bundle 'commons-io:commons-io:2.4'
+	fetchSources = true
+	determineImportVersions = true
+
+	override {
+		optionalImport(
+			// no version requirement for certain JRE provided packages
+			// use wildcards to not enforce imports
+			'javax.xml.*',
+			// also make JUnit optional everywhere - so we can exclude it from products
+			'junit.framework.*',
+			'org.junit.*'
+		)
+	}
+
+	def poiVersion = '3.11'
+	feature id: 'platform.shared.poi',
+			name: 'Apache POI',
+			version: poiVersion, {
+		// merged POI bundle
+		merge(failOnDuplicate: false) {
+			bundle "org.apache.poi:poi:$poiVersion"
+			bundle "org.apache.poi:poi-ooxml:$poiVersion"
+			bundle "org.apache.poi:poi-ooxml-schemas:$poiVersion"
+
+			bnd {
+				symbolicName = 'org.apache.poi'
+				bundleName = 'Apache POI'
+				version = poiVersion
+				// only provide poi packages as exported packages
+				instruction 'Export-Package', "org.apache.poi.*;version=$version"
+				instruction 'Private-Package', '*'
+				// don't import any poi packages
+				prependImport '!org.apache.poi.*', 'org.apache.xmlbeans.impl.schema'
+			}
+		}
+	}
 }
 
 task wrapper(type: Wrapper) {

@@ -24,11 +24,11 @@ repositories {
 defaultTasks 'clean', 'updateSiteZip'
 
 platform {
-  // just one example dependency in this configuration
-  // provide your own configuration - for more information see the bnd-platform docs on GitHub
-  bundle 'commons-io:commons-io:2.4'
+	// just one example dependency in this configuration
+	// provide your own configuration - for more information see the bnd-platform docs on GitHub
+	bundle 'commons-io:commons-io:2.4'
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.2'
+	gradleVersion = '2.2'
 }

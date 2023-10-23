@@ -3,5 +3,5 @@ Minimal [**bnd-platform**](https://github.com/stempler/bnd-platform) Gradle proj
 
 Run with `./gradlew` (Linux/Mac) or `gradlew.bat` (Windows).
 
-Currently based on Gradle 2.2 (and includes the corresponding Gradle wrapper)
+Currently based on Gradle 8.4 (and includes the corresponding Gradle wrapper)
 Please see the [**bnd-platform**](https://github.com/stempler/bnd-platform) README for more information.

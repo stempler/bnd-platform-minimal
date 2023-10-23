@@ -1,19 +1,13 @@
 buildscript {
 	repositories {
-		jcenter()
+		mavenCentral()
 	}
 	dependencies {
-		classpath 'org.standardout:bnd-platform:1.3.0'
+		classpath 'org.standardout:bnd-platform:2.0.0'
 	}
 }
 
 apply plugin: 'org.standardout.bnd-platform'
-
-/* Alternative notation:
-plugins {
-  id "org.standardout.bnd-platform" version "1.3.0"
-}
-*/
 
 repositories {
 	mavenCentral()
@@ -24,9 +18,10 @@ defaultTasks 'clean', 'updateSiteZip'
 platform {
 	// just one example dependency in this configuration
 	// provide your own configuration - for more information see the bnd-platform docs on GitHub
-	bundle 'commons-io:commons-io:2.4'
+	bundle 'commons-io:commons-io:2.11.0'
 }
 
-task wrapper(type: Wrapper) {
-	gradleVersion = '2.10'
+tasks.wrapper {
+	distributionType = Wrapper.DistributionType.ALL
+	gradleVersion = '8.4'
 }
